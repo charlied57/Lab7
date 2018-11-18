@@ -7,17 +7,11 @@
 
 #include "unixTimer.h"
 #include <iostream>
-#include <string>
-#include <utility>
-#include <list>
 #include <vector>
-#include <set>
-#include <map>
 
 using namespace std;
 
-vector<long> getNums(size_t listSize)
-{
+vector<long> getNums(size_t listSize) {
     vector<long> theList;
     for (size_t i = 0; i < listSize; ++i)
     {
@@ -26,19 +20,36 @@ vector<long> getNums(size_t listSize)
     return theList;
 }
 
+void stl(){
+    cout << "STL vector size: ";
+    unsigned long n = 0;
+    cin >> n;
+    vector<long> stlVector;
+    stlVector = getNums(n);
+    Timer stlTimer;
+    stlTimer.start();
+    sort(begin(stlVector), end(stlVector));
+    stlTimer.stop();
+    cout << stlTimer() << endl;
+}
+
 void bubbleSort(){
     cout << "Bubble vector size: ";
     unsigned long n = 0;
     cin >> n;
     vector<long> stlBubble;
     stlBubble = getNums(n);
+//    for(int i = 0; i < stlBubble.size()-1; i++){
+//        cout << stlBubble[i] << ", ";
+//    }
+//    cout << stlBubble[stlBubble.size() -1] << endl;
     Timer bubbleTimer;
     bubbleTimer.start();
 
     bool testSwap = true;
     while(testSwap){
         testSwap = false;
-        for(unsigned long i = 0; i < stlBubble.size(); i++){
+        for(unsigned long i = 0; i < stlBubble.size()-1; i++){
             if(stlBubble[i] > stlBubble[i+1]){
                 int temp = stlBubble[i];
                 stlBubble[i] = stlBubble[i+1];
@@ -46,124 +57,141 @@ void bubbleSort(){
                 testSwap = true;
             }
         }
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
     bubbleTimer.stop();
+//    for(int i = 0; i < stlBubble.size()-1; i++){
+//        cout << stlBubble[i] << ", ";
+//    }
+//    cout << stlBubble[stlBubble.size() -1] << endl;
     cout << bubbleTimer() << endl;
 }
+
 void insertionSort(){
-    cout << "STL vector size: ";
+    cout << "Insertion vector size: ";
     unsigned long n = 0;
     cin >> n;
-    vector<long> stlVector;
-    stlVector = getNums(n);
-    Timer stlTimer;
-    stlTimer.start();
-    sort(begin(stlVector), end(stlVector));
-    stlTimer.stop();
-    cout << stlTimer() << endl;
+    vector<long> insertionVector;
+    insertionVector = getNums(n);
+//    for(int i = 0; i < insertionVector.size()-1; i++){
+//        cout << insertionVector[i] << ", ";
+//    }
+    Timer insertionTimer;
+    insertionTimer.start();
+
+    for(long i = i; i < insertionVector.size(); i++){
+        for(long j = i; j > 0; j--){
+            int currentInt = insertionVector[j];
+            if(currentInt < insertionVector[j-1]) {
+                insertionVector[j] = insertionVector[j - 1];
+                insertionVector[j - 1] = currentInt;
+                //break;
+            }
+        }
+    }
+    insertionTimer.stop();
+//    for(int i = 0; i < insertionVector.size()-1; i++){
+//        cout << insertionVector[i] << ", ";
+//    }
+    cout << insertionTimer() << endl;
 }
+
 void selectionSort(){
     cout << "STL vector size: ";
     unsigned long n = 0;
     cin >> n;
-    vector<long> stlVector;
-    stlVector = getNums(n);
-    Timer stlTimer;
-    stlTimer.start();
-    sort(begin(stlVector), end(stlVector));
-    stlTimer.stop();
-    cout << stlTimer() << endl;
+    vector<long> selectionVector;
+    selectionVector = getNums(n);
+    for(int i = 0; i < selectionVector.size()-1; i++){
+        cout << selectionVector[i] << ", ";
+    }
+    cout << selectionVector[selectionVector.size() -1] << endl;
+    Timer selectionTimer;
+    selectionTimer.start();
+
+    for(unsigned long i = 0; i < selectionVector.size() - 1; i++){
+        unsigned long front = i;
+        for(unsigned long j = front + 1; j < selectionVector.size(); j++){
+            if(selectionVector[j] < selectionVector[i]){
+                int temp = selectionVector[i];
+                selectionVector[i] = selectionVector[j];
+                selectionVector[j] = temp;
+            }
+        }
+    }
+    selectionTimer.stop();
+    for(int i = 0; i < selectionVector.size()-1; i++){
+        cout << selectionVector[i] << ", ";
+    }
+    cout << selectionVector[selectionVector.size() -1] << endl;
+    cout << selectionTimer() << endl;
 }
+
 void mergeSort(){
-    cout << "STL vector size: ";
+    cout << "Merge vector size: ";
     unsigned long n = 0;
     cin >> n;
-    vector<long> stlVector;
-    stlVector = getNums(n);
-    Timer stlTimer;
-    stlTimer.start();
-    sort(begin(stlVector), end(stlVector));
-    stlTimer.stop();
-    cout << stlTimer() << endl;
+    vector<long> mergeVector;
+    mergeVector = getNums(n);
+    Timer mergeTimer;
+    mergeTimer.start();
+
+
+
+
+
+
+    mergeTimer.stop();
+    cout << mergeTimer() << endl;
+    //TODO Program merge
 }
-void quickSort(){
-    cout << "STL vector size: ";
+
+int splitVector(vector<long> & quickVector, long left, long right) {
+     long pivot = quickVector[left];
+     long leftIndex = left+1;
+     long rightIndex = right;
+     long temp;
+
+    while (leftIndex != rightIndex) {
+        if (quickVector[leftIndex]  <= pivot) leftIndex++;
+        else {
+            while (( leftIndex != rightIndex)  && (pivot < quickVector[rightIndex])) rightIndex--;
+            temp =  quickVector[rightIndex];
+            quickVector[rightIndex] = quickVector[leftIndex];
+            quickVector[leftIndex] = temp;
+        }
+    }
+
+    if (quickVector[leftIndex]>pivot) leftIndex--;
+    quickVector[left] = quickVector[leftIndex];
+    quickVector[leftIndex] = pivot;
+
+    return (leftIndex);
+}
+
+void quickSort(vector <long> & quickVector, long L, long R) {
+    if (L < R) {
+        long pivot = splitVector(quickVector, L, R);
+        quickSort(quickVector, L, pivot - 1);
+        quickSort(quickVector, pivot + 1, R);
+    }
+}
+
+void quickSortSetupThenRun(){
+    https://gist.github.com/raarce/4069108#file-qs-cpp-L13
+    cout << "Quick vector size: ";
     unsigned long n = 0;
     cin >> n;
-    vector<long> stlVector;
-    stlVector = getNums(n);
-    Timer stlTimer;
-    stlTimer.start();
-    sort(begin(stlVector), end(stlVector));
-    stlTimer.stop();
-    cout << stlTimer() << endl;
-}
+    vector<long> quickVector;
+    quickVector = getNums(n);
+    Timer quickTimer;
+    cout << endl;
+    quickTimer.start();
+    quickSort(quickVector, 0, quickVector.size()-1);
+    quickTimer.stop();
 
-template< typename I >
-void printContainer( std::ostream & outfile, I itBegin, I itEnd, std::string left, std::string separator, std::string right ) {
-    outfile << left;
-    I it = itBegin;
-    if( it != itEnd )
-    {
-        outfile << ( * it );
-        ++it;
-    }
-    while( it != itEnd )
-    {
-        outfile << separator << ( * it );
-        ++it;
-    }
-    outfile << right;
-}
+    cout << endl;
+    cout << quickTimer() << endl;
 
-// Print pair< T, U > to outfile.
-template< typename T, typename U > std::ostream & operator<<( std::ostream & outfile, const std::pair< T, U > pairTU ) {
-    outfile << "< " << pairTU.first << ", " << pairTU.second << " >";
-    return outfile;
+    //TODO Comment quick sort
 }
-
-// Print list< T > to outfile.
-template< typename T > std::ostream & operator<<( std::ostream & outfile, const std::list< T > & listT ) {
-    printContainer( outfile, begin(listT), end(listT),
-                    "( ", ", ", " )" );
-    return outfile;
-}
-
-// Print set< T > to outfile.
-template< typename T > std::ostream & operator<<( std::ostream & outfile, const std::set< T > & setT ) {
-    printContainer( outfile, setT.begin(), setT.end(),
-                    "{ ", ", ", " }" );
-    return outfile;
-}
-
-// Print map< T, U > to outfile.
-template< typename T, typename U > std::ostream & operator<<( std::ostream & outfile, const std::map< T, U > & mapTU ) {
-    printContainer( outfile, mapTU.begin(), mapTU.end(),
-                    "{ ", ", ", " }" );
-    return outfile;
-}
-
-// Print vector< Type > to outfile.
-template< typename T > std::ostream & operator<<( std::ostream & outfile, const std::vector< T > & vectorT ) {
-    printContainer(outfile, vectorT.begin(), vectorT.end(),
-                   "[ ", ", ", " ]");
-    return outfile;
-}
-
 #endif //LAB7_LAB7_CDAVIS56_H

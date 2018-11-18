@@ -4,25 +4,12 @@
 
 using namespace std;
 
-void stl(){
-    cout << "STL vector size: ";
-    unsigned long n = 0;
-    cin >> n;
-    vector<long> stlVector;
-    stlVector = getNums(n);
-    Timer stlTimer;
-    stlTimer.start();
-    sort(begin(stlVector), end(stlVector));
-    stlTimer.stop();
-    cout << stlTimer() << endl;
-}
-
 int main() {
-//    stl();
-    bubbleSort();
+    stl();
+//    bubbleSort();
 //    insertionSort();
 //    selectionSort();
 //    mergeSort();
-//    quickSort();
+//    quickSortSetupThenRun();
     return 0;
 }
