@@ -126,23 +126,79 @@ void selectionSort(){
     cout << selectionTimer() << endl;
 }
 
-void mergeSort(){
+void mergeSort(vector <long> & mergeVector, long L, long middleIndex, long R){
+
+    long firstArraySize = middleIndex - L + 1;
+    long secondArraySize = R - middleIndex;
+
+    vector<long> tempOneArray;
+    vector<long> tempTwoArray;
+    for(long i = 0; i < firstArraySize; i++){
+        tempOneArray.push_back(mergeVector[L + i]);
+    }
+    for(long i = 0; i < secondArraySize; i++){
+        tempTwoArray.push_back(mergeVector[middleIndex + 1 + i]);
+    }
+
+    long firstArrayIndex = 0;
+    long secondArrayIndex = 0;
+    long mainArrayIndex = L;
+
+    while(firstArrayIndex < firstArraySize && secondArrayIndex < secondArraySize){
+        if(tempOneArray[firstArrayIndex] < tempTwoArray[secondArrayIndex]){
+            mergeVector[mainArrayIndex] = tempOneArray[firstArrayIndex];
+            firstArrayIndex++;
+        }
+        else{
+            mergeVector[mainArrayIndex] = tempTwoArray[secondArrayIndex];
+            secondArrayIndex++;
+        }
+        mainArrayIndex++;
+    }
+    while(firstArrayIndex < firstArraySize){
+        mergeVector[mainArrayIndex] = tempOneArray[firstArrayIndex];
+        firstArrayIndex++;
+        mainArrayIndex++;
+    }
+    while(secondArrayIndex < secondArraySize){
+        mergeVector[mainArrayIndex] = tempTwoArray[secondArrayIndex];
+        secondArrayIndex++;
+        mainArrayIndex++;
+    }
+
+
+
+}
+
+void partition(vector <long> & mergeVector, long L, long R){
+    if(L < R){
+        long middleIndex = L + (R - L) / 2;
+
+        partition(mergeVector, L, middleIndex);
+        partition(mergeVector, middleIndex + 1, R);
+        mergeSort(mergeVector, L, middleIndex, R);
+    }
+}
+
+void mergeSetupAndRun(){
     cout << "Merge vector size: ";
     unsigned long n = 0;
     cin >> n;
     vector<long> mergeVector;
     mergeVector = getNums(n);
+//    for(int i = 0; i < mergeVector.size()-1; i++){
+//    cout << mergeVector[i] << ", ";
+//    }
+//    cout << endl;
     Timer mergeTimer;
     mergeTimer.start();
-
-
-
-
-
-
+    partition(mergeVector, 0, mergeVector.size() - 1);
     mergeTimer.stop();
+//    for(int i = 0; i < mergeVector.size()-1; i++){
+//        cout << mergeVector[i] << ", ";
+//    }
+//    cout << endl;
     cout << mergeTimer() << endl;
-    //TODO Program merge
 }
 
 int splitVector(vector<long> & quickVector, long left, long right) {
