@@ -5,11 +5,11 @@
 using namespace std;
 
 int main() {
-//    stl();
-//    bubbleSort();
-//    insertionSort();
-//    selectionSort();
+    stl();
+    bubbleSort();
+    insertionSort();
+    selectionSort();
     mergeSetupAndRun();
-//    quickSortSetupThenRun();
+    quickSortSetupThenRun();
     return 0;
 }

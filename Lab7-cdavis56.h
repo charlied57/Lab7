@@ -202,21 +202,31 @@ void mergeSetupAndRun(){
 }
 
 int splitVector(vector<long> & quickVector, long left, long right) {
-     long pivot = quickVector[left];
+    // define variables
+    long pivot = quickVector[left];
      long leftIndex = left+1;
      long rightIndex = right;
      long temp;
 
+     // itterate through elements in vector
     while (leftIndex != rightIndex) {
-        if (quickVector[leftIndex]  <= pivot) leftIndex++;
+        // move on if no swap is needed
+        if (quickVector[leftIndex]  <= pivot){
+            leftIndex++;
+        }
+        // move if no element is swapped
         else {
-            while (( leftIndex != rightIndex)  && (pivot < quickVector[rightIndex])) rightIndex--;
+            while (( leftIndex != rightIndex)  && (pivot < quickVector[rightIndex])){
+                rightIndex--;
+            }
+            // swap elements
             temp =  quickVector[rightIndex];
             quickVector[rightIndex] = quickVector[leftIndex];
             quickVector[leftIndex] = temp;
         }
     }
 
+    // swap pivot
     if (quickVector[leftIndex]>pivot) leftIndex--;
     quickVector[left] = quickVector[leftIndex];
     quickVector[leftIndex] = pivot;
@@ -225,29 +235,36 @@ int splitVector(vector<long> & quickVector, long left, long right) {
 }
 
 void quickSort(vector <long> & quickVector, long L, long R) {
+    // split up into separate elements
     if (L < R) {
         long pivot = splitVector(quickVector, L, R);
+        // recursion
         quickSort(quickVector, L, pivot - 1);
         quickSort(quickVector, pivot + 1, R);
     }
 }
 
 void quickSortSetupThenRun(){
-    https://gist.github.com/raarce/4069108#file-qs-cpp-L13
+    // After many attempts I was unable to get my quicksort to function properly, I redid it using code at
+    // https://gist.github.com/raarce/4069108#file-qs-cpp-L13
+    // as the framework as my code.
     cout << "Quick vector size: ";
     unsigned long n = 0;
     cin >> n;
     vector<long> quickVector;
     quickVector = getNums(n);
     Timer quickTimer;
-    cout << endl;
+//    for(int i = 0; i < quickVector.size()-1; i++){
+//    cout << quickVector[i] << ", ";
+//    }
+//    cout << endl;
     quickTimer.start();
     quickSort(quickVector, 0, quickVector.size()-1);
     quickTimer.stop();
-
-    cout << endl;
+//    for(int i = 0; i < quickVector.size()-1; i++){
+//        cout << quickVector[i] << ", ";
+//    }
+//    cout << endl;
     cout << quickTimer() << endl;
-
-    //TODO Comment quick sort
 }
 #endif //LAB7_LAB7_CDAVIS56_H
