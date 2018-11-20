@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/Charlie/Google Drive/COSC 2030/Lab7/Lab7-cdavis56.cpp
+iostream
+-
+Lab7-cdavis56.h
+/Users/Charlie/Google Drive/COSC 2030/Lab7/Lab7-cdavis56.h
+unixTimer.h
+/Users/Charlie/Google Drive/COSC 2030/Lab7/unixTimer.h
+
+/Users/Charlie/Google Drive/COSC 2030/Lab7/Lab7-cdavis56.h
+unixTimer.h
+/Users/Charlie/Google Drive/COSC 2030/Lab7/unixTimer.h
+iostream
+-
+vector
+-
+
+/Users/Charlie/Google Drive/COSC 2030/Lab7/unixTimer.h
+sys/time.h
+-
+
